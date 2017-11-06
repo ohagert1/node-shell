@@ -1,8 +1,11 @@
 const cmd = require('./commands');
 
+cmd.prompt();
+
 process.stdin.on('data', function(input) {
-  var userInput = input.toString().trim().toUpperCase();
-  switch(userInput) {
+  var command = input.toString().trim().toUpperCase().split(' ')[0];
+  var arg = input.toString().trim().split(' ').slice(1).join(' ');
+  switch(command) {
     case 'DATE':
       cmd.logDate();
       break;
@@ -12,7 +15,20 @@ process.stdin.on('data', function(input) {
     case 'LS':
       cmd.ls();
       break;
-
+    case 'ECHO':
+      cmd.echo(arg);
+      break;
+    case 'CAT':
+      cmd.cat();
+      break;
+    case 'HEAD':
+      cmd.head();
+      break;
+    case  'TAIL':
+      cmd.tail();
+      break;
+    default:
+      cmd.prompt();
   }
 });
 
